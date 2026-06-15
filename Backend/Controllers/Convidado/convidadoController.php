@@ -28,6 +28,7 @@ class ConvidadoController
                 ->key('mesa_idmesa', v::intVal()->notEmpty());
 
             $esquema->assert($dados);
+            
         } catch (NestedValidationException $e) {
             $mensagemPersonalizada = [
                 'nome' => 'Nome inválido, min 1, max 45',
@@ -70,11 +71,11 @@ class ConvidadoController
     {
         try {
             Middleware::validarMiddleware();
-
+    
 
             $dados = json_decode(file_get_contents('php://input'), true);
             $this->validarDados($dados);
-
+            echo 'oi';
             http_response_code(201);
             echo json_encode($this->convidadoService->criarConvidado($dados));
             exit;

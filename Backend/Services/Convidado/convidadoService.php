@@ -84,7 +84,7 @@ class ConvidadoService
         ];
     }
 
-    public function  criarConvidado($convidadoDados)
+    public function criarConvidado($convidadoDados)
     {
         try {
 
