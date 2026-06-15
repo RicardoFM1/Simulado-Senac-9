@@ -5,6 +5,8 @@ use Dotenv\Dotenv;
 require_once __DIR__ . "/../Controllers/Usuario/usuarioController.php";
 require_once __DIR__ . "/../Controllers/Mesa/mesaController.php";
 require_once __DIR__ . "/../Controllers/Convidado/convidadoController.php";
+require_once __DIR__ . "/../Controllers/Checkin/checkinController.php";
+
 
 
 require_once __DIR__ . "/../vendor/autoload.php";
@@ -98,6 +100,34 @@ if ($rota === '/convidado') {
     }
 }
 
+if ($rota === '/checkin') {
+    $controller = new CheckinController();
+
+    if ($metodo === 'GET') {
+        $controller->listarCheckins();
+    }
+
+    if ($metodo === 'POST') {
+        $controller->criarCheckin();
+    }
+}
+
+if ($rota === '/checkin/cancelar') {
+    $controller = new CheckinController();
+
+    if ($metodo === 'PUT') {
+        $controller->cancelarCheckin();
+    }
+}
+
+
+if($rota === '/retrieve'){
+    if($metodo === 'GET'){
+        http_response_code(200);
+        echo json_encode(Middleware::validarMiddleware());
+        exit;
+    }
+}
 
 http_response_code(400);
 echo json_encode([
