@@ -119,6 +119,7 @@ class CheckinService
             $atualizarConvidado = $this->db->prepare('UPDATE convidado SET confirmacao = :confirmacao WHERE id_convidado = :id_convidado');
 
             $atualizarConvidado->execute([
+                ':confirmacao' => 'confirmado',
                 ':id_convidado' => $checkinDados['convidado_idconvidado']
             ]);
 
@@ -137,7 +138,7 @@ class CheckinService
             if (str_contains($e->getMessage(), 'fk_checkin_convidado')) {
                 throw new Exception('Convidado referenciado não encontrado', 404);
             }
-            throw new Exception('Erro ao tentar realizar checkin', 500);
+            throw new Exception('Erro ao tentar realizar checkin' . $e->getMessage(), 500);
         }
     }
 
