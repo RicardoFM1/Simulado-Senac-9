@@ -22,7 +22,7 @@ class UsuarioController
             $esquema = v::key('nome', v::stringVal()->notEmpty()->length(1, 45))
                 ->key('email', v::email())
                 ->key('cpf', v::cpf())
-                ->key('senha', v::stringVal()->notEmpty()->length(1, 255))
+                ->key('senha', v::stringVal()->notEmpty()->length(8, 255))
                 ->key('cargo', v::in($cargosPermitidos));
 
             $esquema->assert($dados);
@@ -31,7 +31,7 @@ class UsuarioController
                 'nome' => 'Nome inválido, min 1, max 45',
                 'email' => 'Email inválido',
                 'cpf' => 'Cpf inválido',
-                'senha' => 'Senha inválida, min 1, max 255',
+                'senha' => 'Senha inválida, min 8, max 255',
                 'cargo' => 'Cargo fora do escopo: administrador ou ceremonialista'
             ];
 
