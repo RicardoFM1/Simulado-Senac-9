@@ -157,7 +157,7 @@ class UsuarioService
             if (str_contains($e->getMessage(), 'cpf')) {
                 throw new Exception('Cpf já em uso', 409);
             }
-            throw new Exception('Erro ao criar usuário', 500);
+            throw new Exception('Erro ao atualizar usuário', 500);
         }
     }
 
@@ -187,7 +187,7 @@ class UsuarioService
             if (str_contains($e->getMessage(), 'parent row')) {
                 throw new Exception('Não é possível deletar um usuário referenciado', 409);
             }
-            throw new Exception('Erro ao criar usuário', 500);
+            throw new Exception('Erro ao deletar usuário', 500);
         }
     }
 }
