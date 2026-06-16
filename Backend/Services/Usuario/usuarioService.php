@@ -134,6 +134,10 @@ class UsuarioService
                 throw new Exception($usuario['mensagem'], $usuario['codigo']);
             }
 
+            if($usuarioDados['senha'] === ''){
+                $usuarioDados['senha'] = $usuario['dados']['senha'];
+            }
+
             $atualizar = $this->db->prepare('UPDATE usuario SET nome = :nome, email = :email, cpf = :cpf, 
             senha = :senha, cargo = :cargo WHERE email = :email_usuario');
 
