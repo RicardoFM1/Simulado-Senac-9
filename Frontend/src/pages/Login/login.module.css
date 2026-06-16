@@ -1,0 +1,43 @@
+
+.divLogin {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    height: 100vh;
+}
+
+.divFoto {
+    display: flex;
+    flex: 0 0 60%;
+    object-fit: cover;
+}
+
+.imagem{
+    width: 100%;
+}
+
+.divForm {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    flex: 1
+}
+
+.logo{
+    width: 75px;
+
+}
+
+.btnLogin{
+    background-color: rgb(154, 105, 70) !important;
+    border: none !important;
+}
+
+@media (max-width: 1024px){
+    .divFoto{
+        display: none;
+    }
+}
