@@ -55,16 +55,21 @@ class CheckinService
         $resultado = [];
 
         while ($row = $listagem->fetch()) {
-            
-
-                $data = new Datetime($row['data_e_hora']);
-                $dataFormatada = $data->format('d-m-Y H:i:s');
-            
+            $dataFormatada = null;
+            if (!empty($row['data_e_hora'])) {
+                try {
+                    $data = new DateTime($row['data_e_hora']);
+                    $dataFormatada = $data->format('d-m-Y H:i:s');
+                } catch (Exception $e) {
+                   
+                    $dataFormatada = $row['data_e_hora'];
+                }
+            }
 
             $resultado[] = [
                 'id_convidado' => $row['id_convidado'],
                 'id_checkin' => $row['id_checkin'],
-                'data_e_hora' => $dataFormatada ?? $row['data_e_hora'],
+                'data_e_hora' => $dataFormatada,
                 'status' => $row['status'],
                 'usuario' => [
                     'nome' => $row['nome_usuario'],

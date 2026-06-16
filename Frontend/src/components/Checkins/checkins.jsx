@@ -71,9 +71,8 @@ const Checkins = () => {
                 if (row.convidado.confirmacao === 'pendente') {
                     return <span className="text-warning">{row.convidado.confirmacao}</span>
                 }
-                if (row.convidado.confirmacao === 'cancelado') {
-                    return <span className="text-danger">{row.convidado.confirmacao}</span>
-                } else {
+               
+                else {
                     return '-'
                 }
             }
@@ -155,7 +154,7 @@ const Checkins = () => {
                     <Button className={style.btnFiltro} onClick={() => setSearch('')}>Todos</Button>
                     <Button className={style.btnFiltro} onClick={() => setSearch('pendente')}>Pendentes</Button>
                     <Button className={style.btnFiltro} onClick={() => setSearch('confirmado')}>Confirmados</Button>
-                    <Button className={style.btnFiltro} onClick={() => setSearch('cancelado')}>Cancelados</Button>
+                   
 
 
                 </div>
