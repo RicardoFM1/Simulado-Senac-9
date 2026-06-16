@@ -55,11 +55,11 @@ class CheckinService
         $resultado = [];
 
         while ($row = $listagem->fetch()) {
-            if ($row['data_e_hora'] !== null) {
+            
 
                 $data = new Datetime($row['data_e_hora']);
                 $dataFormatada = $data->format('d-m-Y H:i:s');
-            }
+            
 
             $resultado[] = [
                 'id_convidado' => $row['id_convidado'],
@@ -145,10 +145,9 @@ class CheckinService
             }
 
 
-            $atualizar = $this->db->prepare('UPDATE checkin SET status = :status WHERE id_checkin = :id_checkin');
+            $atualizar = $this->db->prepare('DELETE FROM checkin WHERE id_checkin = :id_checkin');
 
             $atualizar->execute([
-                ':status' => 'não realizado',
                 ':id_checkin' => $idCheckin
             ]);
 

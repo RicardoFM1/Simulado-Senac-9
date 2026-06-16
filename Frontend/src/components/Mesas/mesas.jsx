@@ -99,6 +99,27 @@ const Mesas = () => {
             }
         }
     }
+
+    const handleDeletar = async() => {
+        try{
+            const res = await Api.delete(`/mesa?id_mesa=${mesaSelecionada.id_mesa}`)
+
+            if(res.status === 200){
+                toast.success(res.data.mensagem || 'Sucesso ao deletar mesa')
+                handleClose()
+            }
+        }catch(err){
+            const erros = err.response.data?.erros
+
+            if (erros) {
+                Object.values(erros).forEach((msg) => {
+                    toast.error(msg)
+                })
+            } else {
+                toast.error(err.response.data?.mensagem)
+            }
+        }
+    }
     return (
         <>
             <div className="d-flex align-items-center justify-content-between">
@@ -123,7 +144,7 @@ const Mesas = () => {
 
             <Button className={style.btnAdicionar} onClick={handleNovo}>Adicionar novo registro</Button>
             <Tabela rows={mesaFiltrada} columns={columns} handleSelected={handleSelected} keyField={'id_mesa'} />
-            <MesaModal dados={mesaSelecionada} show={show} onSubmit={enviarDados} handleClose={handleClose} />
+            <MesaModal dados={mesaSelecionada} show={show} onSubmit={enviarDados} handleClose={handleClose} handleDeletar={handleDeletar} />
         </>
     )
 }

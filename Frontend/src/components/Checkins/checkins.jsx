@@ -62,7 +62,7 @@ const Checkins = () => {
         { header: 'Usuário', accessor: 'usuario', render: (row) => (row.usuario ? `${row.usuario.nome || ''} - ${row.usuario.cpf || ''}` : '-') },
         { header: 'Convidado', accessor: 'convidado', render: (row) => (row.convidado ? `${row.convidado.nome} ${row.convidado.sobrenome} - ${row.convidado.cpf}` : '-') },
         { header: 'Data e Hora', accessor: 'data_e_hora', render: (row) => (row.data_e_hora ? row.data_e_hora : '-') },
-        { header: 'Status', accessor: 'status', render: (row) => (row.status ? row.status : "-") },
+        { header: 'Checkin', accessor: 'status', render: (row) => (row.status ? row.status : "não realizado") },
         {
             header: 'Confirmação', accessor: 'convidado.confirmacao', render: (row) => {
                 if (row.convidado.confirmacao === 'confirmado') {

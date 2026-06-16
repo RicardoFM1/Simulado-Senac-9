@@ -7,3 +7,8 @@
      background-color: rgb(154, 105, 70) !important;
     border: none !important;
 }
+
+.btnDeletar{
+    background-color: rgba(230, 51, 48, 0.977) !important;
+    border: none !important;
+}

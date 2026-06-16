@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { Button, Form, Modal, Stack } from "react-bootstrap";
 import style from "./convidadoModal.module.css"
-import {IMaskInput} from 'react-imask'
+import { IMaskInput } from 'react-imask'
+import ModalConfirmacao from "../ModalConfirmacao/modalConfirmacao";
 
-const ConvidadoModal = ({ dados, show, onSubmit, handleClose }) => {
+const ConvidadoModal = ({ dados, show, onSubmit, handleClose, handleDeletar }) => {
     const [formData, setFormData] = useState({
         nome: "", sobrenome: "", email: "", cpf: "", categoria: "",
         confirmacao: "", telefone: "", mesa_idmesa: ""
     })
     const [editando, setEditando] = useState(false)
+    const [showDeletar, setShowDeletar] = useState(false)
 
     useEffect(() => {
         if (dados) {
@@ -37,6 +39,7 @@ const ConvidadoModal = ({ dados, show, onSubmit, handleClose }) => {
         onSubmit(formData)
     }
     return (
+        <>
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title >{editando ? 'Gerenciar convidado' : 'Registrar novo convidado'}</Modal.Title>
@@ -52,8 +55,8 @@ const ConvidadoModal = ({ dados, show, onSubmit, handleClose }) => {
                                 name="nome"
                                 onChange={handleChange}
                                 required={!editando}
-
-                            />
+                                
+                                />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Sobrenome</Form.Label>
@@ -63,7 +66,7 @@ const ConvidadoModal = ({ dados, show, onSubmit, handleClose }) => {
                                 name="sobrenome"
                                 onChange={handleChange}
                                 required={!editando}
-
+                                
                             />
                         </Form.Group>
                         <Form.Group>
@@ -74,21 +77,21 @@ const ConvidadoModal = ({ dados, show, onSubmit, handleClose }) => {
                                 name="email"
                                 onChange={handleChange}
                                 required={!editando}
-
-                            />
+                                
+                                />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Cpf</Form.Label>
                             <Form.Control
-                            as={IMaskInput}
-                            mask="000.000.000-00"
+                                as={IMaskInput}
+                                mask="000.000.000-00"
                                 placeholder="Inclua o cpf do convidado"
                                 value={formData.cpf}
                                 name="cpf"
                                 onChange={handleChange}
                                 required={!editando}
-
-                            />
+                                
+                                />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Categoria</Form.Label>
@@ -98,7 +101,7 @@ const ConvidadoModal = ({ dados, show, onSubmit, handleClose }) => {
                                 name="categoria"
                                 onChange={handleChange}
                                 required={!editando}
-
+                                
                             >
                                 <option value="">Selecione uma opção</option>
                                 <option value="noivos">Noivos</option>
@@ -108,33 +111,33 @@ const ConvidadoModal = ({ dados, show, onSubmit, handleClose }) => {
 
                             </Form.Select>
                         </Form.Group>
-                            { editando ? (
-
-                                <Form.Group>
+                        {editando ? (
+                            
+                            <Form.Group>
 
                                 <Form.Label>Confirmação</Form.Label>
-                            <Form.Select
-                                placeholder="Inclua a confirmação do convidado"
-                                value={formData.confirmacao}
-                                name="confirmacao"
-                                onChange={handleChange}
-                                required={!editando}
-                                
-                                >
-                                <option value="">Selecione uma opção</option>
-                                <option value="confirmado">Confirmado</option>
-                                <option value="pendente">Pendente</option>
-                                <option value="cancelado">Cancelado</option>
+                                <Form.Select
+                                    placeholder="Inclua a confirmação do convidado"
+                                    value={formData.confirmacao}
+                                    name="confirmacao"
+                                    onChange={handleChange}
+                                    required={!editando}
+                                    
+                                    >
+                                    <option value="">Selecione uma opção</option>
+                                    <option value="confirmado">Confirmado</option>
+                                    <option value="pendente">Pendente</option>
+                                    <option value="cancelado">Cancelado</option>
 
-                            </Form.Select>
-                        </Form.Group>
-                            ) : ("")
-                            }
+                                </Form.Select>
+                            </Form.Group>
+                        ) : ("")
+                    }
                         <Form.Group>
                             <Form.Label>Telefone</Form.Label>
                             <Form.Control
-                            as={IMaskInput}
-                            mask="(00) 00000-0000"
+                                as={IMaskInput}
+                                mask="(00) 00000-0000"
                                 placeholder="Inclua o telefone do convidado"
                                 value={formData.telefone}
                                 name="telefone"
@@ -159,12 +162,17 @@ const ConvidadoModal = ({ dados, show, onSubmit, handleClose }) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className={style.btnCancelar} onClick={handleClose} type="button">Cancelar</Button>
+                    <Button className={style.btnDeletar} onClick={() => setShowDeletar(!showDeletar)} type="button">Excluir</Button>
 
                     <Button className={style.btnSubmit} type="submit">{editando ? 'Salvar alterações' : 'Registrar'}</Button>
                 </Modal.Footer>
             </Form>
-        </Modal>
 
+        </Modal>
+<ModalConfirmacao handleClose={() => setShowDeletar(false)} setShow={setShowDeletar} show={showDeletar} deletar={handleDeletar}/>
+
+                                </>
+    
     )
 }
 

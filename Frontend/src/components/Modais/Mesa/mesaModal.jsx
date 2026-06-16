@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Button, Form, Modal, Stack } from "react-bootstrap";
 import style from "./mesaModal.module.css"
+import ModalConfirmacao from "../ModalConfirmacao/modalConfirmacao";
 
-const MesaModal = ({ dados, show, onSubmit, handleClose }) => {
+const MesaModal = ({ dados, show, onSubmit, handleClose, handleDeletar }) => {
     const [formData, setFormData] = useState({
         capacidade: ""
     })
     const [editando, setEditando] = useState(false)
+    const [showDeletar, setShowDeletar] = useState(false)
 
     useEffect(() => {
         if (dados) {
@@ -32,35 +34,39 @@ const MesaModal = ({ dados, show, onSubmit, handleClose }) => {
         onSubmit(formData)
     }
     return (
-        <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title >{editando ? 'Gerenciar mesa' : 'Registrar nova mesa'}</Modal.Title>
-            </Modal.Header>
-            <Form onSubmit={handleSubmit}>
-                <Modal.Body>
-                    <Stack>
-                        <Form.Group>
-                            <Form.Label>Capacidade</Form.Label>
-                            <Form.Control
-                                placeholder="Defina a capacidade da mesa"
-                                value={formData.capacidade}
-                                name="capacidade"
-                                onChange={handleChange}
-                                required={!editando}
-                                type="number"
-                            />
-                        </Form.Group>
-                    </Stack>
+        <>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title >{editando ? 'Gerenciar mesa' : 'Registrar nova mesa'}</Modal.Title>
+                </Modal.Header>
+                <Form onSubmit={handleSubmit}>
+                    <Modal.Body>
+                        <Stack>
+                            <Form.Group>
+                                <Form.Label>Capacidade</Form.Label>
+                                <Form.Control
+                                    placeholder="Defina a capacidade da mesa"
+                                    value={formData.capacidade}
+                                    name="capacidade"
+                                    onChange={handleChange}
+                                    required={!editando}
+                                    type="number"
+                                />
+                            </Form.Group>
+                        </Stack>
 
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button className={style.btnCancelar} onClick={handleClose} type="button">Cancelar</Button>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button className={style.btnCancelar} onClick={handleClose} type="button">Cancelar</Button>
+                        <Button className={style.btnDeletar} onClick={() => setShowDeletar(!showDeletar)} type="button">Excluir</Button>
 
-                    <Button className={style.btnSubmit} type="submit">{editando ? 'Salvar alterações' : 'Registrar'}</Button>
-                </Modal.Footer>
-            </Form>
-        </Modal>
 
+                        <Button className={style.btnSubmit} type="submit">{editando ? 'Salvar alterações' : 'Registrar'}</Button>
+                    </Modal.Footer>
+                </Form>
+            </Modal>
+            <ModalConfirmacao handleClose={() => setShowDeletar(false)} setShow={setShowDeletar} show={showDeletar} deletar={handleDeletar} />
+        </>
     )
 }
 

@@ -118,6 +118,27 @@ const Convidados = () => {
             }
         }
     }
+
+    const handleDeletar = async() => {
+        try{
+            const res = await Api.delete(`/convidado?email_convidado=${convidadoSelecionado.email}`)
+
+            if(res.status === 200){
+                toast.success(res.data.mensagem || 'Sucesso ao deletar convidado')
+                handleClose()
+            }
+        }catch(err){
+            const erros = err.response.data?.erros
+
+            if (erros) {
+                Object.values(erros).forEach((msg) => {
+                    toast.error(msg)
+                })
+            } else {
+                toast.error(err.response.data?.mensagem)
+            }
+        }
+    }
     return (
         <>
             <div className="d-flex align-items-center justify-content-between">
@@ -148,7 +169,7 @@ const Convidados = () => {
 
             <Button className={style.btnAdicionar} onClick={handleNovo}>Adicionar novo registro</Button>
             <Tabela rows={convidadoFiltrado} columns={columns} handleSelected={handleSelected} keyField={'id_convidado'} />
-            <ConvidadoModal dados={convidadoSelecionado} show={show} onSubmit={enviarDados} handleClose={handleClose} />
+            <ConvidadoModal dados={convidadoSelecionado} show={show} onSubmit={enviarDados} handleClose={handleClose} handleDeletar={handleDeletar} />
         </>
     )
 }
