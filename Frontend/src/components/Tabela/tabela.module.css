@@ -1,0 +1,11 @@
+.tabela {
+    border: 2px solid beige !important;
+    border-radius: 10px;
+    border-spacing: 0;
+    border-collapse: separate;
+    overflow: hidden;
+}
+
+.header{
+    background-color: rgba(239, 239, 190, 0.858) !important;
+}
