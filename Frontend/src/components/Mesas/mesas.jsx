@@ -103,6 +103,7 @@ const Mesas = () => {
 
                 <div className="m-5">
                     <h1>Listagem de mesas</h1>
+                    <p>{mesaFiltrada.length ?? 0} Mesas listadas</p>
                     <h5 className="text-muted">Clique na linha da tabela para gerenciar as mesas</h5>
 
                 </div>

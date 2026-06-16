@@ -72,7 +72,7 @@ class ConvidadoService
 
     public function listarConvidados()
     {
-        $query = $this->db->query('SELECT * FROM convidado');
+        $query = $this->db->query('SELECT * FROM convidado ORDER BY id_convidado DESC');
 
         $query->execute();
 

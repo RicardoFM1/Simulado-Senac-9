@@ -1,0 +1,17 @@
+.btnAdicionar {
+    background-color: rgb(154, 105, 70) !important;
+    border: none !important;
+    margin: 45px;
+}
+
+.btnFiltro {
+    background-color: unset !important;
+    color: black !important;
+    border: 1px solid rgb(154, 105, 70) !important;
+}
+
+.btnFiltro:focus {
+    background-color: rgb(154, 105, 70) !important;
+    color: white !important;
+    border: 1px solid rgb(154, 105, 70) !important;
+}
