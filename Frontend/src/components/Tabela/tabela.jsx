@@ -18,7 +18,7 @@ return (
                 {temDados ? (
 
                     rows.map(row => (
-                        <tr onClick={() => handleSelected(row)} key={row[keyField]}>
+                        <tr style={{cursor: "pointer"}} onClick={() => handleSelected(row)} key={row[keyField]}>
 
                         {columns.map(column => (
                             <td key={column.accessor}>

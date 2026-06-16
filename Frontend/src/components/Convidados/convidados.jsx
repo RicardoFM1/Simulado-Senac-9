@@ -1,4 +1,4 @@
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, InputGroup } from "react-bootstrap";
 import style from "./convidados.module.css"
 import { useEffect, useState } from "react";
 import Api from "../../service/api";
@@ -6,6 +6,8 @@ import Tabela from "../Tabela/tabela";
 import { IoMdArrowDropright } from "react-icons/io";
 import { toast } from "react-toastify";
 import ConvidadoModal from "../Modais/Convidados/convidadoModal";
+import { IoIosSearch } from "react-icons/io";
+
 
 const Convidados = () => {
     const [convidados, setConvidados] = useState([])
@@ -128,10 +130,13 @@ const Convidados = () => {
                 </div>
 
                 <div className="me-4 d-flex gap-3">
+                    <InputGroup>
+                    <InputGroup.Text><IoIosSearch/></InputGroup.Text>
                     <Form.Control
                         placeholder="Busque um convidado"
                         onChange={(e) => setSearch(e.target.value)}
-                    />
+                        />
+                        </InputGroup>
                     <Button className={style.btnFiltro} onClick={() => setSearch('')}>Todos</Button>
                     <Button className={style.btnFiltro} onClick={() => setSearch('pendente')}>Pendentes</Button>
                     <Button className={style.btnFiltro} onClick={() => setSearch('confirmado')}>Confirmados</Button>

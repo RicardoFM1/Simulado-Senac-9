@@ -49,7 +49,7 @@ class CheckinService
         $listagem = $this->db->prepare("SELECT c.id_checkin, c.data_e_hora, c.status, u.nome as nome_usuario, u.cpf as cpf_usuario,
         co.nome as nome_convidado, co.sobrenome as sobrenome_convidado, co.cpf as cpf_convidado, co.id_convidado, co.confirmacao
         FROM convidado co LEFT JOIN checkin c ON c.convidado_idconvidado = co.id_convidado
-        LEFT JOIN usuario u ON u.id_usuario = c.usuario_idusuario WHERE co.confirmacao IN ('pendente', 'confirmado') ORDER BY id_convidado DESC ");
+        LEFT JOIN usuario u ON u.id_usuario = c.usuario_idusuario WHERE co.confirmacao IN ('pendente', 'confirmado') ");
 
         $listagem->execute();
         $resultado = [];
@@ -89,17 +89,7 @@ class CheckinService
     {
         try {
 
-            $buscar = $this->db->prepare('SELECT * FROM convidado WHERE id_convidado = :id_convidado');
 
-            $buscar->execute([
-                ':id_convidado' => $checkinDados['convidado_idconvidado']
-            ]);
-
-            $convidado = $buscar->fetch();
-
-            if (empty($convidado)) {
-                throw new Exception('Convidado não encontrado', 404);
-            }
 
 
             $data = date('Y-m-d H:i:s');

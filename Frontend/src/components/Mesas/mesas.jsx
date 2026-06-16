@@ -1,4 +1,4 @@
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, InputGroup } from "react-bootstrap";
 import style from "./mesas.module.css"
 import { useEffect, useState } from "react";
 import Api from "../../service/api";
@@ -6,6 +6,8 @@ import Tabela from "../Tabela/tabela";
 import { IoMdArrowDropright } from "react-icons/io";
 import MesaModal from "../Modais/Mesa/mesaModal";
 import { toast } from "react-toastify";
+import { IoIosSearch } from "react-icons/io";
+
 
 const Mesas = () => {
     const [mesas, setMesas] = useState([])
@@ -109,10 +111,13 @@ const Mesas = () => {
                 </div>
 
                 <div className="me-4">
+                    <InputGroup>
+                    <InputGroup.Text><IoIosSearch/></InputGroup.Text>
                     <Form.Control
                         placeholder="Busque uma mesa (nº)"
                         onChange={(e) => setSearch(e.target.value)}
-                    />
+                        />
+                        </InputGroup>
                 </div>
             </div>
 
