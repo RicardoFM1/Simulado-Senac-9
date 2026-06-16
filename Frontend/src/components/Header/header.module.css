@@ -1,0 +1,83 @@
+.logo{
+    width: 50px;
+
+}
+
+.divBrand{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.botoesMeio{
+    display: flex;
+    gap: 20px;
+}
+
+.botoesMeio button {
+    background-color: unset !important;
+    border: unset;
+    color: gray;
+    
+}
+
+.botoesMeio button:hover{
+    background-color: unset !important;
+    border-bottom: 3px solid rgb(243, 243, 209) !important;
+    color: gray ;
+}
+
+.botoesMeio button:active{
+    border-bottom: 3px solid rgb(243, 243, 209) !important;
+    color: black !important;
+}
+
+
+.botaoAtivo {
+    background-color: unset !important;
+    border-bottom: 3px solid rgb(243, 243, 209) !important;
+    color: black !important;
+    font-size: 18px;
+}
+
+.botaoSair {
+    margin-right: 20px;
+    background-color: rgba(236, 105, 88, 0.909) !important;
+    border: none !important
+}
+.botaoSair:hover{
+    margin-right: 20px;
+    background-color: rgb(236, 105, 88) !important;
+    border: none !important
+}
+
+
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.menu button{
+    background-color: unset !important;
+    border: unset !important;
+    color: black;
+}
+
+.menu button:hover{
+    background-color: unset !important;
+    border: unset !important;
+    color: black !important;
+}
+
+@media (max-width: 1024px){
+    .botoesMeio {
+        display: none;
+    }
+    .botaoSair{
+        display: none;
+    }
+}

@@ -65,11 +65,11 @@ const Login = () => {
     return (
         <div className={style.divLogin}>
             <div className={style.divFoto}>
-                <img src={imagemCasamento} className={style.imagem} />
+                <img src={imagemCasamento} className={style.imagem}  alt="Imagem casamento"/>
             </div>
 
             <div className={style.divForm}>
-                <img src={logoCasamento} className={style.logo} />
+                <img src={logoCasamento} className={style.logo} alt="Logo casamento" />
                 <h1>Senac Wedding</h1>
                 <h5>Seu portal de casamentos</h5>
                 <hr className="w-75" />
