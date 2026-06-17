@@ -55,8 +55,7 @@ const UsuarioModal = ({ dados, show, onSubmit, handleClose, handleDeletar }) => 
                                     value={formData.nome}
                                     name="nome"
                                     onChange={handleChange}
-                                    required={!editando}
-
+                                    required
                                 />
                             </Form.Group>
                             
@@ -67,7 +66,7 @@ const UsuarioModal = ({ dados, show, onSubmit, handleClose, handleDeletar }) => 
                                     value={formData.email}
                                     name="email"
                                     onChange={handleChange}
-                                    required={!editando}
+                                    required
                                     type="email"
                                 />
                             </Form.Group>
@@ -80,38 +79,38 @@ const UsuarioModal = ({ dados, show, onSubmit, handleClose, handleDeletar }) => 
                                     value={formData.cpf}
                                     name="cpf"
                                     onChange={handleChange}
-                                    required={!editando}
-
+                                    required
                                 />
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>Senha</Form.Label>
                                 <Form.Control
-                                    placeholder="Inclua a senha do usuário"
+                                    placeholder={editando ? "Deixe em branco para manter a senha atual" : "Inclua a senha do usuário"}
                                     value={formData.senha}
                                     name="senha"
                                     onChange={handleChange}
                                     required={!editando}
                                     type="password"
                                 />
-                                    
+                                {editando && (
+                                    <Form.Text className="text-muted d-block mt-2">
+                                        Deixe em branco para manter a senha atual
+                                    </Form.Text>
+                                )}
                             </Form.Group>
                            
                             <Form.Group>
                                 <Form.Label>Cargo</Form.Label>
                                 <Form.Select
-                                   
                                     placeholder="Inclua o cargo do usuário"
                                     value={formData.cargo}
                                     name="cargo"
                                     onChange={handleChange}
-                                    required={!editando}
-
+                                    required
                                 >
                                     <option value="">Selecione uma opção</option>
                                     <option value="administrador">Administrador</option>
                                     <option value="ceremonialista">Ceremonialista</option>
-
                                 </Form.Select>
                             </Form.Group>
                            

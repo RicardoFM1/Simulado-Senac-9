@@ -134,8 +134,12 @@ class UsuarioService
                 throw new Exception($usuario['mensagem'], $usuario['codigo']);
             }
 
-            if($usuarioDados['senha'] === ''){
-                $usuarioDados['senha'] = $usuario['dados']['senha'];
+            // Se a senha estiver vazia, mantém a senha anterior sem fazer hash novamente
+            if (empty($usuarioDados['senha'])) {
+                $senhaFinal = $usuario['dados']['senha'];
+            } else {
+                // Se a senha foi informada, faz o hash
+                $senhaFinal = password_hash($usuarioDados['senha'], PASSWORD_DEFAULT);
             }
 
             $atualizar = $this->db->prepare('UPDATE usuario SET nome = :nome, email = :email, cpf = :cpf, 
@@ -145,7 +149,7 @@ class UsuarioService
                 ':nome' => $usuarioDados['nome'],
                 ':email' => $usuarioDados['email'],
                 ':cpf' => $usuarioDados['cpf'],
-                ':senha' => password_hash($usuarioDados['senha'], PASSWORD_DEFAULT),
+                ':senha' => $senhaFinal,
                 ':cargo' => $usuarioDados['cargo'],
                 ':email_usuario' => $emailUsuario
             ]);

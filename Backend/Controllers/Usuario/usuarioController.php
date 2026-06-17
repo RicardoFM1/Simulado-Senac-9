@@ -52,6 +52,53 @@ class UsuarioController
         }
     }
 
+    public function validarDadosEdicao($dados, $temSenha)
+    {
+        try {
+            $cargosPermitidos = ['administrador', 'ceremonialista'];
+            $esquema = v::key('nome', v::stringVal()->notEmpty()->length(1, 45))
+                ->key('email', v::email())
+                ->key('cpf', v::cpf())
+                ->key('senha', v::stringVal()->length($temSenha ? 8 : 0, 255)) // Senha opcional na edição
+                ->key('cargo', v::in($cargosPermitidos));
+
+            $esquema->assert($dados);
+        } catch (NestedValidationException $e) {
+            if ($temSenha) {
+                $mensagemPersonalizada = [
+                    'nome' => 'Nome inválido, min 1, max 45',
+                    'email' => 'Email inválido',
+                    'cpf' => 'Cpf inválido',
+                    'senha' => 'Senha inválida, min 8, max 255',
+                    'cargo' => 'Cargo fora do escopo: administrador ou ceremonialista'
+                ];
+            } else {
+
+                $mensagemPersonalizada = [
+                    'nome' => 'Nome inválido, min 1, max 45',
+                    'email' => 'Email inválido',
+                    'cpf' => 'Cpf inválido',
+                    'senha' => 'Senha inválida, max 255',
+                    'cargo' => 'Cargo fora do escopo: administrador ou ceremonialista'
+                ];
+            }
+            $mensagemOriginal = $e->getMessages();
+            $mensagemTraduzida = [];
+
+            foreach ($mensagemOriginal as $campo => $mensagem) {
+                $mensagemTraduzida[$campo] = $mensagemPersonalizada[$campo] ?? $mensagem;
+            }
+
+            http_response_code(400);
+            echo json_encode([
+                'sucesso' => false,
+                'mensagem' => 'Erro de validação',
+                'erros' => $mensagemTraduzida
+            ]);
+            exit;
+        }
+    }
+
     public function apenasAdmin()
     {
         $jwt = Middleware::validarMiddleware();
@@ -120,10 +167,13 @@ class UsuarioController
     {
         try {
             $this->apenasAdmin();
-
+            $temSenha = false;
             $dados = json_decode(file_get_contents('php://input'), true);
+            if (!empty($dados['senha'])) {
+                $temSenha = true;
+            }
             $email = $_GET['email_usuario'];
-            $this->validarDados($dados);
+            $this->validarDadosEdicao($dados, $temSenha);
 
             http_response_code(200);
             echo json_encode($this->usuarioService->atualizarUsuario($dados, $email));
